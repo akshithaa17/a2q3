@@ -1,6 +1,9 @@
 ###############################################################################
 # CMPT 145 Course material
 # Original Author: Lauresa Stilling
+###############################################################################
+# CMPT 145 Course material
+# Original Author: Lauresa Stilling
 # Date Created:   31 May 2023
 # Last Edited:    31 May 2023
 #
@@ -36,7 +39,8 @@ def copy_list_of_lists(data: list) -> list:
         list - a new list with new internal lists created by copying the
      information from the list passed in.
     """
-    new_list = data
+    #new_list = data
+    new_list = [list(item) for item in data] #CHANGE
     return new_list
 
 def copy_dict_of_dicts(data: dict) -> dict:
@@ -52,16 +56,20 @@ def copy_dict_of_dicts(data: dict) -> dict:
         dict - a new dictionary with new internal dictionaries created by copying the
      information from the list passed in.
     """
+
+    """""
     new_dict = {}
     for element in data:
         if data[element] is data:
             new_dict[element] = data[element]
+            """""
+    new_dict = {key: dict(value) for key, value in data.items()} #CHANGE
     return new_dict
 
 
 # TODO PART B - Implement the following functions based on the description
 
-def deep_copy_list_of_dicts(data:list) -> list:
+def deep_copy_list_of_dicts(data: list) -> list:
     """
     Purpose: Deep copy the list passed in.
     Pre-condition:
@@ -71,7 +79,9 @@ def deep_copy_list_of_dicts(data:list) -> list:
     Return:
         list - deep copy of the list it's values are returned.
     """
-    return []
+    new_list = [{key: value for key, value in dict_.items()} for dict_ in data]
+    return new_list
+
 
 def remove_from_2DList(data:list, val) -> list:
     """
@@ -84,7 +94,10 @@ def remove_from_2DList(data:list, val) -> list:
     Return:
         list - list with changes applied.
     """
-    return []
+    for sublist in data:
+        while val in sublist:
+            sublist.remove(val)
+    return data
 
 
 def filter_from_2DList(data:list, val) -> list:
@@ -98,7 +111,9 @@ def filter_from_2DList(data:list, val) -> list:
     Return:
         list - a new list with no instances of the value passed in.
     """
-    return []
+    new_list = [[item for item in sublist if item != val] for sublist in data]
+    return new_list
+
 
 ### TESTING ###
 
